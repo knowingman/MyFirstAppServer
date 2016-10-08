@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hb.app.dao.IUserDao">
+    <select id="selectUserByMobile" parameterType="String" resultType="UserEntity">
+        SELECT * FROM t_user_info WHERE user_tel = #{mobile} limit 1
+    </select>
+
+    <select id="selectUserByUid" parameterType="Integer" resultType="UserEntity">
+        SELECT * FROM t_user_info WHERE uid = #{uid}
+    </select>
+
+    <insert id="addUser" parameterType="String">
+        INSERT INTO t_user_info(user_tel) VALUES (#{mobile})
+    </insert>
+
+    <select id="selectTokenByUid" parameterType="Integer" resultType="String">
+        SELECT * FROM t_user_token WHERE uid = #{uid}
+    </select>
+
+    <select id="selectUidByToken" parameterType="String" resultType="Integer">
+        SELECT * FROM t_user_token WHERE token = #{token}
+    </select>
+
+    <insert id="insertToken">
+        INSERT INTO t_user_token(uid,token) VALUES (#{0},#{1})
+    </insert>
+
+    <update id="updateToken">
+        UPDATE t_user_token SET token = #{1} WHERE uid = #{0}
+    </update>
+
+    <delete id="deleteToken" parameterType="String">
+        DELETE * FROM t_user_token WHERE token = #{token}
+    </delete>
+</mapper>
